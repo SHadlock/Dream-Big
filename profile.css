@@ -19,7 +19,7 @@
 
 .container::after {    
           content: "";
-          background-image: url('../../assets/cornercanyon2.jpg');
+          background-image: url('assets/cornercanyon2.jpg');
           background-size: cover;
           position: fixed;
           top: 0px;
