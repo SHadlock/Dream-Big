@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Kiwi Maru', serif;
+}
+.background-image::after {
+    content: "";
+          background-image: url('assets/spring2.jpg');
+          background-size: cover;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0px;
+          right: 0px;
+          bottom: 0px;
+          left: 0px;
+           opacity: .5; 
+           z-index: -1
+}
+
+.title {
+    align-items:center;
+}
+h1 {
+    text-align: center;
+    font-size: 50px;
+    background-color:  hsl(60, 100%, 94.9%, .3);
+    margin: auto;
+    margin-bottom: 70px;
+    width: fit-content;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.projects {
+    background-color: hsl(60, 100%, 94.9%, .3);
+    margin-left: 25px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    padding: 25px;
+    width: fit-content;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+.projects a {
+    font-family: 'Kiwi Maru', serif;
+    text-decoration: none;
+    transition: 0.5s; 
+    color: #000
+}
+
+.projects a:hover {
+    color: hsl(290, 100%, 48%);
+    letter-spacing: 2px;
+    font-size: 50px;
+}
+
+.list {
+    background-color: hsl(60, 100%, 94.9%, .3);
+    margin-left: 25px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    padding: 25px;
+    width: fit-content;
+}
+
+/* logo on bottom */
+.footer {
+    /* align-self:center; */
+    margin-bottom: 15px;
+    margin-left: 15px;
+    /* align-items:center;
+    justify-content: center; */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
+}
+
+.circle { 
+    display: inline-block;
+    border-radius: 50%;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 5px;
+    background: hsl(60, 100%, 94.9%, .3);
+    text-align: center;
+    line-height: 1;
+    box-sizing: content-box;
+    white-space: nowrap;
+    justify-content: center;
+  }
+ 
+
+.name {
+    font-size: 25px;
+    color: #000;
+    font-family: 'Kiwi Maru', serif;
+    
+}
+
+.slogan {
+    font-size: 20px;
+    color:hsl(290, 100%, 48%);
+    font-family: 'Caveat', cursive;
+    
+}
