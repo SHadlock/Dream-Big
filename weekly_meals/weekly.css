@@ -56,7 +56,7 @@ margin-top: 15px;
  
  
 }
-.droptarget {
+#dropTarget {
  text-align: center;
   padding: 10px 0px;
   border: 1px solid #aaaaaa;

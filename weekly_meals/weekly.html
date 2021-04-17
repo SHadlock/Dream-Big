@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="weekly.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script> -->
     <style type="text/css" media="screen, print">
         @font-face {
             font-family: "Chalkboard";
@@ -15,14 +17,15 @@
     <title>Weekly Meals</title>
 </head>
 
-<body>
+<body onload="myFunction()">
     <h1>Weekly Menu</h1>
 
     <form>
-        <div class="nativeWeekPicker">
+        <div class=" nativeWeekPicker">
             <label for="week">Choose a week</label>
             <input id="week" type="week" name="week" min="2021-W01" max="2023-W52" required>
-            <span class="validity"></span>
+            <!-- <input id="week" type="week" value="2017-W01" required> -->
+            <span class=" validity"></span>
         </div>
         <p class="fallbackLabel">Choose a week?</p>
         <div class="fallbackWeekPicker">
@@ -48,27 +51,12 @@
     <p>Click and hold the mouse button down while assigning the meals to each day of the week</p>
 
     <div class="container">
-        <div class="meals">
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget">Meal 1!</p>
+        <div class="meals" id="meals">
+            <div id="dropTarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p ondragstart="dragStart(event)" draggable="true" id="dragtarget">Meal 1!</p>
             </div>
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget2">Meal 2!</p>
-            </div>
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget3">Meal 3!</p>
-            </div>
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget4">Meal 4!</p>
-            </div>
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget5">Meal 5!</p>
-            </div>
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget6">Meal 6!</p>
-            </div>
-            <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <p ondragstart="dragStart(event)" ondrag="dragging(event)" draggable="true" id="dragtarget7">Meal 7!</p>
+            <div id="dropTarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p ondragstart="dragStart(event)" draggable="true" id="dragtarget2">Meal 2!</p>
             </div>
         </div>
 
