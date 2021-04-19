@@ -1,54 +1,82 @@
+.background {
+  background-image: url(../assets/menu2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+h1 {
+  text-align: center;
+  font-family: 'Kiwi Maru', serif;
+  font-size: 45px;
+  background-color: hsl(33, 80%, 92%, .5);
+  width: fit-content;
+  margin: auto;
+ 
+  
+}
+
+h2 {
+  text-align: center;
+  font-family: 'Kiwi Maru', serif;
+  font-size: 25px;
+  background-color: hsl(33, 80%, 92%, .5);
+  width: fit-content;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+h3 {
+  
+  font-family: 'Kiwi Maru', serif;
+  font-size: 25px;
+  background-color: hsl(33, 80%, 92%, .5);
+  
+}
+
+
+
+
 .container {
   display:flex;
   flex-direction: row;
   justify-content: space-around;
   align-content: center;
-  background-image: url(../assets/wood.jpg);
-  /* background-size: cover; */
+  /* background-image: url(../assets/wood.jpg); */
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  /* background-position:center; 
-background-attachment:scroll; 
--o-background-size:cover; 
--moz-background-size:cover; 
--webkit-background-size:cover; 
-background-repeat:no-repeat; */
+  font-family: 'Kiwi Maru', serif;
+
 
     background-repeat: no-repeat;
-    
-    -o-background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
- 
 }
+
 .week{
 flex: 1;
 text-align: center;
-/* border: 1px solid black; */
+padding: 10px;
+border-width: 25px;
+border-style: solid;
+border-image: url(../assets/woodframe.jpg) 25% round;
 background-image: url(../assets/chalkboard-black.jpg);
 font-family: "Chalkboard", serif;
-font-size: 20px;
-color: #6fe7db;
+font-size: 40px;
+color: #eb3d95;
 margin-top: 15px;
-
-
 
 }
 
 .meals{
   flex: .5;
   text-align: center;
-
-  
-  
 }
 
 .days{
-  text-align:center;
+  text-align:left;
   color: #f4f4f0;
   font-family: "Chalkboard", serif;
   font-size: 50px;
+  margin: 0px;
 }
 .shopping-list {
   flex: 1;
@@ -58,16 +86,20 @@ margin-top: 15px;
 }
 #dropTarget {
  text-align: center;
-  padding: 10px 0px;
-  border: 1px solid #aaaaaa;
+  padding: 0px;
+  box-shadow: 8px 8px 3px hsl(0, 100%, 0%, .5);
   margin: 15px;
   width: auto;
   height: auto;
-  background-color:  #6fe7db;
+  background-color: #c7abeb;
+  
+  
 }
 
 .dropzone {
-  text-align: center;
+  text-align: left;
+  font-size: 40px;
+  border-bottom: solid 2px white;
   width: auto;
   /* height: 35px; */
   margin: 15px;
@@ -116,18 +148,60 @@ margin-top: 15px;
   border: 0;
   outline: 0;
   background: transparent;
-  color: mediumblue;
-  font-family: 'Handlee', cursive;
+  color: black;
+  font-family: 'Kiwi Maru', serif;
   font-weight: bold;
   font-size: 18px;
   box-sizing: border-box;
   z-index: 1;
 }
 
+/* push pin */
 img {
   height: 50px;
   width: 50px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.footer {
+  /* align-self:center; */
+  margin-bottom: 15px;
+  margin-left: 15px;
+  /* align-items:center;
+  justify-content: center; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  
+}
+
+.circle { 
+  display: inline-block;
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 5px;
+  background: hsl(33, 80%, 92%, .5);
+  text-align: center;
+  line-height: 1;
+  box-sizing: content-box;
+  white-space: nowrap;
+  justify-content: center;
+}
+
+
+.name {
+  font-size: 25px;
+  color: #000;
+  font-family: 'Kiwi Maru', serif;
+  
+}
+
+.slogan {
+  font-size: 20px;
+  color:hsl(290, 100%, 48%);
+  font-family: 'Caveat', cursive;
+  
 }

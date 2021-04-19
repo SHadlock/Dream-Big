@@ -35,7 +35,7 @@ function myFunction() {
     // weekElement.value = weekElement.defaultValue;
 
     // adding 1 since to current date and returns value starting from 0 
-    var result = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7);
+    var result = Math.round((numberOfDays) / 7);
 
     var d = new Date();
     var n = d.getFullYear();
@@ -43,7 +43,7 @@ function myFunction() {
 
     var weekNumber = n + "-" + "W" + result;
     weekElement.value = weekNumber;
-
+    console.log(todaydate.getDate())
 }
 // Drag and drop meals
 function dragStart(ev) {
