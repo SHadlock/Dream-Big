@@ -96,7 +96,7 @@ margin-top: 15px;
   
 }
 
-.dropzone {
+#dropzone0, #dropzone1, #dropzone2, #dropzone3, #dropzone4, #dropzone5, #dropzone6 {
   text-align: left;
   font-size: 40px;
   border-bottom: solid 2px white;

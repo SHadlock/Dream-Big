@@ -18,7 +18,7 @@
     <title>Simply Dinner Meal Planner</title>
 </head>
 
-<body onload="myFunction()">
+<body>
     <div class="background">
 
         <h1>Simply Dinner Meal Planner</h1>
@@ -27,7 +27,8 @@
             <form>
                 <div class=" nativeWeekPicker">
                     <label for="week">Choose a week</label>
-                    <input id="week" type="week" name="week" min="2021-W01" max="2023-W52" required>
+                    <input onchange="loadMeals()" id="week" type="week" name="week" min="2021-W01" max="2023-W52"
+                        required>
                     <span class=" validity"></span>
                 </div>
                 <p class="fallbackLabel">Choose a week?</p>
@@ -67,34 +68,56 @@
             </div>
 
             <div class="week">
-                <div class="days">
-                    Monday
+                <div class="Monday">
+                    <div class="days" id="days">
+                        Monday
+                    </div>
+                    <div id="dropzone0">
+                    </div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="days">
-                    Tuesday
+
+                <div class="Tuesday">
+                    <div class="days">
+                        Tuesday
+                    </div>
+                    <div id="dropzone1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="days">
-                    Wednesday
+
+
+                <div class="Wednesday">
+                    <div class="days">
+                        Wednesday
+                    </div>
+                    <div id="dropzone2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="days">
-                    Thursday
+
+                <div class="Thursday">
+                    <div class="days">
+                        Thursday
+                    </div>
+                    <div id="dropzone3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="days">
-                    Friday
+
+                <div class="Friday">
+                    <div class="days">
+                        Friday
+                    </div>
+                    <div id="dropzone4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                <div class="days">
-                    Saturday
+
+                <div class="Saturday">
+                    <div class="days">
+                        Saturday
+                    </div>
+                    <div id="dropzone5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
                 <div class="days">
-                    Sunday
+                    <div class="Sunday">
+                        Sunday
+                    </div>
+                    <div id="dropzone6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
 
             <div class="shopping-list">
