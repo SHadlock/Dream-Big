@@ -105,9 +105,12 @@ margin-top: 15px;
   margin: 15px;
   padding: 10px 0px;
   /* border: 1px solid black; */
-
 }
 
+a {
+  text-decoration: none;
+  color: red
+}
 .paper {
   position: relative;
   width: 90%;

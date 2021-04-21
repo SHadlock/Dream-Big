@@ -1,8 +1,10 @@
+//functions to run on page load
 window.addEventListener("load", myInit, true); function myInit() {
     myFunction();
     loadMeals();
 }
-
+var mealIds = new Array();
+// brings in meals from database
 function myFunction() {
     $.ajax({
         url: "http://localhost:8080/recipes?user_id=1", success: function (data) {
@@ -29,46 +31,25 @@ function myFunction() {
 
 
 
-
+    //displays current week in drop down calendar
     var weekElement = document.getElementById("week");
-
-    //define a date object variable that will take the current system date
     todaydate = new Date();
-
-    //find the year of the current date
     var oneJan = new Date(todaydate.getFullYear(), 0, 1);
-
-    // calculating number of days in given year before a given date 
     var numberOfDays = Math.floor((todaydate - oneJan) / (24 * 60 * 60 * 1000));
-    // weekElement.value = weekElement.defaultValue;
-
-    // adding 1 since to current date and returns value starting from 0 
     var result = Math.round((1 + numberOfDays) / 7);
 
     var d = new Date();
     var n = d.getFullYear();
 
-
     var weekNumber = n + "-" + "W" + result;
     weekElement.value = weekNumber;
-    console.log(numberOfDays)
-
 }
 
-
-
+//individual dates from the date picker
+//allows meals to save for the week
 function loadMeals() {
     var inputWeek = document.querySelector('#week');
     var dates = parseDates(inputWeek.value);
-    console.log(dates);
-
-    // for (let i = 1; i <= 7; i++) {
-    //     let first = curr.getDate() - curr.getDay() + i
-    //     let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-    //     weekMeal.push(day)
-    // }
-
-
 
     for (var j = 0; j < 7; j++) {
         console.log("dropzone" + j);
@@ -81,25 +62,65 @@ function loadMeals() {
         $.ajax({
             url: url, indexValue: j, success: function (data) {
                 if (data !== "") {
-                    var id = "dropzone" + this.indexValue;
+                    // var sid = "dropzone" + this.indexValue;
+                    var dropzone = document.getElementById('dropzone' + this.indexValue);
+                    var parg = document.createElement('p');
+                    var dele = document.createElement('a');
+                    // dele.href = deleteMeal();
+                    // div.id = "dropzone" + this.indexValue;
+                    parg.id = "dropzones" + this.indexValue;
+                    dele.id = "delete" + this.indexValue;
+                    dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
+                    parg.innerHTML = data.recipe.name;
+                    parg.appendChild(dele);
+                    $(document).on('click', '#delete' + this.indexValue, { day: this.indexValue }, function (event) {
+                        var data = event.data;
+                        var url = "http://localhost:8080/meal/" + mealIds[data.day];
+                        $.ajax({
+                            url: url,
+                            type: "DELETE",
+                            success: function (result) {
 
-                    var div = document.createElement('div');
-                    div.id = "savedMeal" + this.indexValue;
-                    div.innerHTML = data.recipe.name;
-                    var dropzone = document.getElementById(id)
-                    dropzone.appendChild(div);
+                            }
+                        })
+                        var del = document.getElementById("dropzones" + data.day);
+                        del.remove();
+                    });
+
+
+
+                    dropzone.appendChild(parg);
+
+                    mealIds[this.indexValue] = data.id;
+                    console.log(mealIds);
+
+
+                    // div.innerHTML = data.recipe.name;
+                    // var dropzone = document.getElementById(sid)
+
+
                 }
+
             }
         })
+
+
+
+
     }
+
+
+
+
+
 }
+
 
 
 
 
 // Drag and drop meals
 function dragStart(ev) {
-    console.log("dragStart")
     ev.dataTransfer.setData("Text", ev.target.id); //dataTransfer holds data that is going to be dragged. setData sets the format of data. 
     ev.effectAllowed = "copy";
     //event.dataTransfer.setData(format, data)
@@ -115,57 +136,62 @@ function allowDrop(ev) {
 
 function drop(ev) {
     ev.preventDefault(); //if outside of the area, won't drop
-    //var data = ev.dataTransfer.getData("Text"); //variable of "data" is set to retrieve the data that is to be dragged
     var id = ev.dataTransfer.getData("Text");
     var recipe_id = id.substring(5);
     var element = document.getElementById(id);
-    var nodeCopy = element.cloneNode(true);
-    var day = ev.currentTarget.id.substring(8);
+    //check to make sure a meal hasn't already been assigned for that date
+    if (ev.target.innerHTML == "") {
+        var nodeCopy = element.cloneNode(true);
+        var day = ev.currentTarget.id.substring(8);
+        var inputWeek = document.querySelector('#week');
+        var dates = parseDates(inputWeek.value);
+        var date = dates[day];
+        nodeCopy.id = "dropzones" + day;
+        ev.target.appendChild(nodeCopy);
+        var data = { mealDate: date, user: { id: 1 }, recipe: { id: recipe_id } };
+        var dele = document.createElement('a')
+        dele.id = 'delete' + day;
+        dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
+        nodeCopy.appendChild(dele);
+        $(document).on('click', '#delete' + day, { day: day }, function (event) {
+            var data = event.data;
+            var url = "http://localhost:8080/meal/" + mealIds[data.day];
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function (result) {
 
-    var inputWeek = document.querySelector('#week');
-    var dates = parseDates(inputWeek.value);
-    var date = dates[day];
-    nodeCopy.id = "newId" + day;
-    ev.target.appendChild(nodeCopy);
-    // var recipe_id = $(nodeCopy).data("recipe_id");
-    // recipe_id = 3;
-    var data = { mealDate: date, user: { id: 1 }, recipe: { id: recipe_id } };
-    $.ajax({
-        url: "http://localhost:8080/meal",
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        dataType: 'json',
-        type: 'post',
-        success: function (response) {
-        }
-    });
+                }
+            })
+            var del = document.getElementById("dropzones" + data.day);
+            del.remove();
+        });
+        $.ajax({
+            url: "http://localhost:8080/meal",
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'json',
+            type: 'post',
+            indexValue: day,
+            success: function (response) {
+                mealIds[this.indexValue] = response.id;
+                console.log(mealIds);
+            }
+
+        });
+
+
+    }
+    else {
+        alert("meal has already been assigned for this date");
+    }
 }
+
 
 
 
 // Calendar
 
-//define a date object variable that will take the current system date
-todaydate = new Date();
-
-//find the year of the current date
-var oneJan = new Date(todaydate.getFullYear(), 0, 1);
-
-// calculating number of days in given year before a given date 
-var numberOfDays = Math.floor((todaydate - oneJan) / (24 * 60 * 60 * 1000));
-
-// adding 1 since to current date and returns value starting from 0 
-var result = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7);
-
-// var d = new Date();
-// var n = d.getFullYear();
-
-
-// var weekNumber = "2021-W01";
-
-
-// console.log(weekNumber)
-// define variables
 var nativePicker = document.querySelector('.nativeWeekPicker');
 var fallbackPicker = document.querySelector('.fallbackWeekPicker');
 var fallbackLabel = document.querySelector('.fallbackLabel');
@@ -205,7 +231,7 @@ function populateWeeks() {
         weekSelect.appendChild(option);
     }
 }
-
+//helper function for picking date from picker
 let parseDates = (inp) => {
     let year = parseInt(inp.slice(0, 4), 10);
     let week = parseInt(inp.slice(6), 10);
@@ -224,3 +250,88 @@ let parseDates = (inp) => {
     return days;
 }
 
+//create new recipe
+
+// Create a break line element
+var br = document.createElement("br");
+function newRecipe() {
+
+    // Create a form synamically
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "submit.php");
+
+    // Create an input element for Full Name
+    var FN = document.createElement("input");
+    FN.setAttribute("type", "text");
+    FN.setAttribute("name", "FullName");
+    FN.setAttribute("placeholder", "Full Name");
+
+    // Create an input element for date of birth
+    var DOB = document.createElement("input");
+    DOB.setAttribute("type", "text");
+    DOB.setAttribute("name", "dob");
+    DOB.setAttribute("placeholder", "DOB");
+
+    // Create an input element for emailID
+    var EID = document.createElement("input");
+    EID.setAttribute("type", "text");
+    EID.setAttribute("name", "emailID");
+    EID.setAttribute("placeholder", "E-Mail ID");
+
+    // Create an input element for password
+    var PWD = document.createElement("input");
+    PWD.setAttribute("type", "password");
+    PWD.setAttribute("name", "password");
+    PWD.setAttribute("placeholder", "Password");
+
+    // Create an input element for retype-password
+    var RPWD = document.createElement("input");
+    RPWD.setAttribute("type", "password");
+    RPWD.setAttribute("name", "reTypePassword");
+    RPWD.setAttribute("placeholder", "ReEnter Password");
+
+    // create a submit button
+    var s = document.createElement("input");
+    s.setAttribute("type", "submit");
+    s.setAttribute("value", "Submit");
+
+    // Append the full name input to the form
+    form.appendChild(FN);
+
+    // Inserting a line break
+    form.appendChild(br.cloneNode());
+
+    // Append the DOB to the form
+    form.appendChild(DOB);
+    form.appendChild(br.cloneNode());
+
+    // Append the emailID to the form
+    form.appendChild(EID);
+    form.appendChild(br.cloneNode());
+
+    // Append the Password to the form
+    form.appendChild(PWD);
+    form.appendChild(br.cloneNode());
+
+    // Append the ReEnterPassword to the form
+    form.appendChild(RPWD);
+    form.appendChild(br.cloneNode());
+
+    // Append the submit button to the form
+    form.appendChild(s);
+
+    document.getElementsByTagName("body")[0]
+        .appendChild(form);
+}
+
+function deleteMeal(day) {
+    var url = "http://localhost:8080/meal/" + mealIds[day]
+    $.ajax({
+        url: url,
+        type: "DELETE",
+        success: function (result) {
+
+        }
+    });
+}
