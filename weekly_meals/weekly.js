@@ -9,7 +9,7 @@ var mealIds = new Array();
 // brings in meals from database
 function myFunction() {
     $.ajax({
-        url: "http://localhost:8080/recipes?user_id=1", success: function (data) {
+        url: "http://ec2-3-12-162-252.us-east-2.compute.amazonaws.com:8080/recipes?user_id=1", success: function (data) {
             for (var i in data) {
                 var meals = document.getElementById('meals');
                 var div = document.createElement('div');
@@ -61,7 +61,7 @@ function loadMeals() {
         while (d.firstChild) {
             d.removeChild(d.firstChild);
         }
-        var url = "http://localhost:8080/meal-user?user_id=1&meal_date=" + dates[j]
+        var url = "http://ec2-3-12-162-252.us-east-2.compute.amazonaws.com:8080/meal-user?user_id=1&meal_date=" + dates[j]
         $.ajax({
             url: url, indexValue: j, success: function (data) {
                 if (data !== "") {
@@ -79,7 +79,7 @@ function loadMeals() {
                     parg.appendChild(dele);
                     $(document).on('click', '#delete' + this.indexValue, { day: this.indexValue }, function (event) {
                         var data = event.data;
-                        var url = "http://localhost:8080/meal/" + mealIds[data.day];
+                        var url = "http://ec2-3-12-162-252.us-east-2.compute.amazonaws.com:8080/meal/" + mealIds[data.day];
                         $.ajax({
                             url: url,
                             type: "DELETE",
@@ -161,7 +161,7 @@ function drop(ev) {
         nodeCopy.appendChild(dele);
         $(document).on('click', '#delete' + day, { day: day }, function (event) {
             var data = event.data;
-            var url = "http://localhost:8080/meal/" + mealIds[data.day];
+            var url = "http://ec2-3-12-162-252.us-east-2.compute.amazonaws.com:8080/meal/" + mealIds[data.day];
             $.ajax({
                 url: url,
                 type: "DELETE",
@@ -175,7 +175,7 @@ function drop(ev) {
             shoppingList();
         });
         $.ajax({
-            url: "http://localhost:8080/meal",
+            url: "http://ec2-3-12-162-252.us-east-2.compute.amazonaws.com:8080/meal",
             data: JSON.stringify(data),
             contentType: 'application/json',
             dataType: 'json',
@@ -269,7 +269,7 @@ function shoppingList() {
         console.log(mealIds);
         for (i = 0; i < 7; i++) {
             if (mealIds.length > i && mealIds[i] != null) {
-                var url = "http://localhost:8080/meal?id=" + mealIds[i];
+                var url = "http://ec2-3-12-162-252.us-east-2.compute.amazonaws.com:8080/meal?id=" + mealIds[i];
                 $.ajax({
                     url: url,
                     success: function (data) {
