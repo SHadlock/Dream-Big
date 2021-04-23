@@ -2,7 +2,9 @@
 window.addEventListener("load", myInit, true); function myInit() {
     myFunction();
     loadMeals();
+    shoppingList();
 }
+
 var mealIds = new Array();
 // brings in meals from database
 function myFunction() {
@@ -48,6 +50,7 @@ function myFunction() {
 //individual dates from the date picker
 //allows meals to save for the week
 function loadMeals() {
+
     var inputWeek = document.querySelector('#week');
     var dates = parseDates(inputWeek.value);
 
@@ -71,6 +74,7 @@ function loadMeals() {
                     parg.id = "dropzones" + this.indexValue;
                     dele.id = "delete" + this.indexValue;
                     dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
+                    // dele.addEventListener("mouseover", hover);
                     parg.innerHTML = data.recipe.name;
                     parg.appendChild(dele);
                     $(document).on('click', '#delete' + this.indexValue, { day: this.indexValue }, function (event) {
@@ -85,6 +89,7 @@ function loadMeals() {
                         })
                         var del = document.getElementById("dropzones" + data.day);
                         del.remove();
+
                     });
 
 
@@ -152,6 +157,7 @@ function drop(ev) {
         var dele = document.createElement('a')
         dele.id = 'delete' + day;
         dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
+        // dele.addEventListener("mouseover", hover);
         nodeCopy.appendChild(dele);
         $(document).on('click', '#delete' + day, { day: day }, function (event) {
             var data = event.data;
@@ -165,6 +171,8 @@ function drop(ev) {
             })
             var del = document.getElementById("dropzones" + data.day);
             del.remove();
+            delete mealIds[data.day];
+            shoppingList();
         });
         $.ajax({
             url: "http://localhost:8080/meal",
@@ -179,7 +187,7 @@ function drop(ev) {
             }
 
         });
-
+        shoppingList();
 
     }
     else {
@@ -250,88 +258,51 @@ let parseDates = (inp) => {
     return days;
 }
 
-//create new recipe
+// Update Shopping List
+function shoppingList() {
+    setTimeout(function () {
 
-// Create a break line element
-var br = document.createElement("br");
-function newRecipe() {
 
-    // Create a form synamically
-    var form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", "submit.php");
 
-    // Create an input element for Full Name
-    var FN = document.createElement("input");
-    FN.setAttribute("type", "text");
-    FN.setAttribute("name", "FullName");
-    FN.setAttribute("placeholder", "Full Name");
+        var items = document.getElementById("items");
+        items.value = "SHOPPING LIST \n";
+        console.log(mealIds);
+        for (i = 0; i < 7; i++) {
+            if (mealIds.length > i && mealIds[i] != null) {
+                var url = "http://localhost:8080/meal?id=" + mealIds[i];
+                $.ajax({
+                    url: url,
+                    success: function (data) {
 
-    // Create an input element for date of birth
-    var DOB = document.createElement("input");
-    DOB.setAttribute("type", "text");
-    DOB.setAttribute("name", "dob");
-    DOB.setAttribute("placeholder", "DOB");
+                        var items = document.getElementById("items");
 
-    // Create an input element for emailID
-    var EID = document.createElement("input");
-    EID.setAttribute("type", "text");
-    EID.setAttribute("name", "emailID");
-    EID.setAttribute("placeholder", "E-Mail ID");
+                        for (let j = 0; j < data.recipe.recipeIngredients.length; j++) {
+                            var recipeIngredient = data.recipe.recipeIngredients[j];
+                            console.log(recipeIngredient.ingredient.name);
+                            console.log(recipeIngredient.quantity);
+                            var newItem = recipeIngredient.ingredient.name;
+                            // var ingredients = ingredients.push[newItem];
 
-    // Create an input element for password
-    var PWD = document.createElement("input");
-    PWD.setAttribute("type", "password");
-    PWD.setAttribute("name", "password");
-    PWD.setAttribute("placeholder", "Password");
+                            items.value += ("\n" + newItem);
 
-    // Create an input element for retype-password
-    var RPWD = document.createElement("input");
-    RPWD.setAttribute("type", "password");
-    RPWD.setAttribute("name", "reTypePassword");
-    RPWD.setAttribute("placeholder", "ReEnter Password");
+                        }
 
-    // create a submit button
-    var s = document.createElement("input");
-    s.setAttribute("type", "submit");
-    s.setAttribute("value", "Submit");
+                    }
 
-    // Append the full name input to the form
-    form.appendChild(FN);
 
-    // Inserting a line break
-    form.appendChild(br.cloneNode());
+                })
 
-    // Append the DOB to the form
-    form.appendChild(DOB);
-    form.appendChild(br.cloneNode());
-
-    // Append the emailID to the form
-    form.appendChild(EID);
-    form.appendChild(br.cloneNode());
-
-    // Append the Password to the form
-    form.appendChild(PWD);
-    form.appendChild(br.cloneNode());
-
-    // Append the ReEnterPassword to the form
-    form.appendChild(RPWD);
-    form.appendChild(br.cloneNode());
-
-    // Append the submit button to the form
-    form.appendChild(s);
-
-    document.getElementsByTagName("body")[0]
-        .appendChild(form);
-}
-
-function deleteMeal(day) {
-    var url = "http://localhost:8080/meal/" + mealIds[day]
-    $.ajax({
-        url: url,
-        type: "DELETE",
-        success: function (result) {
+            }
 
         }
-    });
+    }, 1000);
+}
+
+function clear() {
+
+    delete mealIds[i];
+}
+
+function hover() {
+    dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
 }
