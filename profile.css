@@ -135,10 +135,10 @@ a:hover {
     width: 200px;
     transform: rotate(25deg);
     padding: 0;
-    /* display:inline-block; */
-    margin-top: 100px;
+    display:inline-block;
+    margin-top: 150px;
     margin-right: 50px;
-    margin-bottom: 0px;
+    margin-bottom: 50px;
     margin-left: 50px;
     border-radius: 25px;
     box-shadow: 20px 20px 10px hsl(0, 100%, 0%, .5);  
@@ -150,10 +150,10 @@ a:hover {
     width: 200px;
     transform: rotate(-25deg);
     padding: 0;
-    /* display:inline-block; */
+    display:inline-block;
     margin-top: 0px;
     margin-right: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     margin-left: 50px;
     border-radius: 25px;
     box-shadow: 20px 20px 10px hsl(0, 100%, 0%, .5);    
@@ -165,8 +165,8 @@ a:hover {
     width: 200px;
     transform: rotate(25deg);
     padding: 0;
-    /* display:inline-block; */
-    margin: 0px 50px 50px 50px;
+    display:inline-block;
+    margin: 0px 50px 150px 50px;
     border-radius: 25px;
     box-shadow: 20px 20px 10px hsl(0, 100%, 0%, .5);  
 }
