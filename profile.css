@@ -136,7 +136,7 @@ a:hover {
     transform: rotate(25deg);
     padding: 0;
     display:inline-block;
-    margin-top: 150px;
+    margin-top: 149px;
     margin-right: 50px;
     margin-bottom: 50px;
     margin-left: 50px;
@@ -166,7 +166,7 @@ a:hover {
     transform: rotate(25deg);
     padding: 0;
     display:inline-block;
-    margin: 0px 50px 150px 50px;
+    margin: 0px 50px 149px 50px;
     border-radius: 25px;
     box-shadow: 20px 20px 10px hsl(0, 100%, 0%, .5);  
 }
