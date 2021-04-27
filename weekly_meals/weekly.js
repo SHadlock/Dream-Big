@@ -65,16 +65,12 @@ function loadMeals() {
         $.ajax({
             url: url, indexValue: j, success: function (data) {
                 if (data !== "") {
-                    // var sid = "dropzone" + this.indexValue;
                     var dropzone = document.getElementById('dropzone' + this.indexValue);
                     var parg = document.createElement('p');
                     var dele = document.createElement('a');
-                    // dele.href = deleteMeal();
-                    // div.id = "dropzone" + this.indexValue;
                     parg.id = "dropzones" + this.indexValue;
                     dele.id = "delete" + this.indexValue;
                     dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
-                    // dele.addEventListener("mouseover", hover);
                     parg.innerHTML = data.recipe.name;
                     parg.appendChild(dele);
                     $(document).on('click', '#delete' + this.indexValue, { day: this.indexValue }, function (event) {
@@ -98,12 +94,6 @@ function loadMeals() {
 
                     mealIds[this.indexValue] = data.id;
                     console.log(mealIds);
-
-
-                    // div.innerHTML = data.recipe.name;
-                    // var dropzone = document.getElementById(sid)
-
-
                 }
 
             }
@@ -157,7 +147,6 @@ function drop(ev) {
         var dele = document.createElement('a')
         dele.id = 'delete' + day;
         dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
-        // dele.addEventListener("mouseover", hover);
         nodeCopy.appendChild(dele);
         $(document).on('click', '#delete' + day, { day: day }, function (event) {
             var data = event.data;
@@ -281,7 +270,7 @@ function shoppingList() {
                             console.log(recipeIngredient.ingredient.name);
                             console.log(recipeIngredient.quantity);
                             var newItem = recipeIngredient.ingredient.name;
-                            // var ingredients = ingredients.push[newItem];
+
 
                             items.value += ("\n" + newItem);
 
@@ -303,6 +292,4 @@ function clear() {
     delete mealIds[i];
 }
 
-function hover() {
-    dele.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;" + "x";
-}
+
